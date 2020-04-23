@@ -3,8 +3,8 @@
 **/*.png
 **/*.pdf
 # keep data folder empty except for the readme
-data/**
-!data/README.md
+# data/**
+# !data/README.md
 
 # copied from cookiecutter pypackage
 # Byte-compiled / optimized / DLL files

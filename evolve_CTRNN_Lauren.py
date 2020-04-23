@@ -29,7 +29,7 @@ def fitnessFunction(genotype):
     trials = 0
     nn.initializeState(np.zeros(size))
     for t in time:
-        pastOutputs = nn.Output
+        pastOutputs = nn.Output>>
         nn.step(stepsize)
         currentOutputs = nn.Output
         fitness_score += np.sum(abs(currentOutputs - pastOutputs)/stepsize)
