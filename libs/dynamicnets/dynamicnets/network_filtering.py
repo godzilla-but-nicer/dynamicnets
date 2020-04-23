@@ -1,5 +1,6 @@
 import numpy as np
 import networkx as nx
+import networkx.algorithms.isomorphism as iso
 from tqdm import tqdm
 from itertools import chain, combinations
 
@@ -9,6 +10,7 @@ def powerset(iterable):
     s = list(iterable)
     return chain.from_iterable(combinations(s, r) for r in range(1, len(s)+1))
 
+
 def generate_networks(N):
     """generate edgelists for all weakly connected directed graphs with N nodes"""
     # easy way to generate an edgelist for the fully connected version
@@ -16,14 +18,24 @@ def generate_networks(N):
     full_edgelist = fully_connected.edges()
 
     possible_edgelists = powerset(full_edgelist)
-    keep_edgelists = []
-
-    for e in tqdm(possible_edgelists):
+    # we will use this list of graphs to filter out isomorphic graphs
+    G_list = []
+    for e in possible_edgelists:
         # make new network from edgelist subset
         check = nx.DiGraph()
+        check.add_nodes_from(list(range(N)))
         check.add_edges_from(e)
 
         if nx.is_weakly_connected(check):
-            keep_edgelists.append(e)
+            G_list.append(check)
+
+    # loop over all combinations of graphs to check for isomorphisms
+    # hopefully modifying like this isn't going to make everything explode
+    # This doesn't get me to the actual number of graphs but it is much lower than
+    # The unfiltered number
+    for graphi in G_list:
+        for j, graphj in enumerate(G_list):
+            if iso.is_isomorphic(graphi, graphj) and graphi != graphj:
+                G_list.pop(j)
     
-    return keep_edgelists
+    return G_list
