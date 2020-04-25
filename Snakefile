@@ -22,11 +22,10 @@ rule paper:
     shell:
         "cd {params.paper_dir}; make"
 
-
-# rule some_data_processing:
-    # input:
-        # "data/some_data.csv"
-    # output:
-        # "data/derived/some_derived_data.csv"
-    # script:
-        # "workflow/scripts/process_some_data.py"
+rule generate_edgelists:
+    input:
+        "data/"
+    output:
+        out_dirs=[directory(f) for f in config["net_sizes"].values()]
+    script:
+        "dynamicnets/dynamicnets/create_edgelists.py"
