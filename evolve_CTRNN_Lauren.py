@@ -9,8 +9,7 @@ import numpy as np
 import CTRNN_Lauren
 import matplotlib.pyplot as plt
 
-#Neural network parameters
-size = 100
+# Neural network parameters
 duration = 100
 stepsize = 0.05
 WeightRange = 15
@@ -18,13 +17,12 @@ BiasRange = 15
 TimeConstMin = 1.0
 TimeConstMax = 2.0
 
-time = np.arange(0.0,duration,stepsize)
-
-#fitness function
+time = np.arange(0.0, duration, stepsize)
 
 def fitnessFunction(genotype):
     nn = CTRNN_Lauren.CTRNN(size)
-    nn.setParameters(genotype,WeightRange,BiasRange,TimeConstMin,TimeConstMax)
+    nn.setParameters(genotype, WeightRange, BiasRange,
+                     TimeConstMin, TimeConstMax)
     fitness_score = 0.0
     trials = 0
     nn.initializeState(np.zeros(size))
@@ -36,8 +34,9 @@ def fitnessFunction(genotype):
     trials += 1
     return fitness_score/(size*fitduration*trials)
 
-#Evolutionary Algorithm parameters
-    
+# Evolutionary Algorithm parameters
+
+
 popsize = 100
 genesize = 10
 recombProb = 0.75
@@ -46,6 +45,5 @@ generations = 50
 tournaments = generations * popsize
 repetitions = 5
 
-#Evolve fitness over generations
-
+# Evolve fitness over generations
 

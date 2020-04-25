@@ -1,0 +1,19 @@
+# set the directories below and copy this file as `config.yaml`
+data_dir: "./data/"
+paper_dir: "./paper/current/"
+
+net_sizes:
+  2: "data/edgelists/2_node_edgelists/"
+  3: "data/edgelists/3_node_edgelists/"
+  4: "data/edgelists/4_node_edgelists/"
+  5: "data/edgelists/5_node_edgelists/"
+  6: "data/edgelists/6_node_edgelists/"
+  7: "data/edgelists/7_node_edgelists/"
+  8: "data/edgelists/8_node_edgelists/"
+  9: "data/edgelists/9_node_edgelists/"
+  10: "data/edgelists/10_node_edgelists/"
+  11: "data/edgelists/11_node_edgelists/"
+  12: "data/edgelists/12_node_edgelists/"
+  13: "data/edgelists/13_node_edgelists/"
+  14: "data/edgelists/14_node_edgelists/"
+  15: "data/edgelists/15_node_edgelists/"

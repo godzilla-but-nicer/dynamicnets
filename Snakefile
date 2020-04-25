@@ -27,5 +27,7 @@ rule generate_edgelists:
         "data/"
     output:
         out_dirs=[directory(f) for f in config["net_sizes"].values()]
+    log:
+        "logs/generate_edgelists.log"
     script:
         "dynamicnets/dynamicnets/create_edgelists.py"
