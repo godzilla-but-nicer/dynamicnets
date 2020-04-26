@@ -81,3 +81,6 @@ class Microbial():
                     self.pop[loser][l] = 1.0
                 if self.pop[loser][l] < -1.0:
                     self.pop[loser][l] = -1.0
+
+    def get_histories(self):
+        return (self.avgHistory, self.bestHistory)

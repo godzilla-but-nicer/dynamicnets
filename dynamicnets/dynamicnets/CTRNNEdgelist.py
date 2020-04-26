@@ -69,6 +69,7 @@ class CTRNN():
             for j in range(self.Size):
                 self.Weight[i][j] = genotype[k]*WeightRange
                 k += 1
+        self.Weight * self.AdjFilter  # enforce connectivity
         for i in range(self.Size):
             self.Bias[i] = genotype[k]*BiasRange
             k += 1
@@ -77,6 +78,7 @@ class CTRNN():
                 (TimeConstMax-TimeConstMin) + TimeConstMin
             k += 1
         self.invTimeConstant = 1.0/self.TimeConstant
+        
 
     def initializeState(self, v):
         self.Voltage = v

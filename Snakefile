@@ -31,3 +31,14 @@ rule generate_edgelists:
         "logs/generate_edgelists.log"
     script:
         "dynamicnets/dynamicnets/create_edgelists.py"
+
+rule evolve_networks:
+    input:
+        "data/edgelists/{nodes}_node_edgelists/"
+    output:
+        pkl="data/passing_timeseries/{nodes}_nodes_passing_timeseries.pkl",
+        csv="data/evo_stats/{nodes}_node_evolve.csv"
+    log:
+        "logs/evolve_networks_{nodes}.log"
+    script:
+        "dynamicnets/dynamicnets/evolve_CTRNN_osc.py"
