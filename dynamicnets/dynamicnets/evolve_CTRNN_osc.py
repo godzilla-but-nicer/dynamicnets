@@ -17,6 +17,7 @@ import pandas as pd
 edgelist_dir = snakemake.input[0]
 edgelist_list = glob.glob(edgelist_dir + '*')
 nnsize = int(edgelist_list[0].split('/')[-1].split('_')[0])
+print('nnsize', nnsize)
 
 # NN params
 WeightRange = 15
@@ -65,7 +66,7 @@ recombProb = 0.5
 mutatProb = 0.1
 generations = 50
 tournaments = generations * popsize
-fitness_threshold = 20.0
+fitness_threshold = 12.0
 strength_threshold = 5.0
 trials = 10
 
@@ -86,6 +87,7 @@ for edgelist in edgelist_list:
     good_enough = []
     peak_sd = []
     strong_together = []
+    periodvar = 0  # just so we have something to put in df
 
     # Repeat evolution to find circuits where:
     #   1. Oscillations are strongly enough

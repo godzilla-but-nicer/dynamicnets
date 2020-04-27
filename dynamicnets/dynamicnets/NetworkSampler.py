@@ -80,7 +80,7 @@ class NetworkSampler:
                 # Ensure that the network is connected
                 # can do this by forcing a connection for each edge
                 if e < N and m_edges >= N:
-                    target = np.random.randint(0, N + 1)
+                    target = np.random.randint(0, N)
                     tup = (e, target)
                     # we can flip this edge with some probability
                     if np.random.uniform() < 0.5:
@@ -101,7 +101,7 @@ class NetworkSampler:
 
                 # once we have all of our connections we can just draw randomly
                 else:
-                    source = np.random.randint(0, N + 1)
+                    source = np.random.randint(0, N)
                     potential_targets = [t for t in range(N) if t != source]
                     target = np.random.choice(potential_targets)
                     edge = (source, target)

@@ -18,7 +18,7 @@ class Microbial():
         self.genesize = genesize
         self.recombProb = recombProb
         self.mutatProb = mutatProb
-        self.pop = np.random.rand(popsize, genesize)*2 - 1
+        self.pop = np.random.rand(popsize, genesize) * 2 - 1
         self.avgHistory = []
         self.bestHistory = []
 
@@ -43,7 +43,6 @@ class Microbial():
         return avgfit/self.popsize, bestfit, bestind
 
     def run(self, tournaments):
-
         # Evolutionary loop
         for i in range(tournaments):
 
