@@ -2,6 +2,7 @@
 **/__pycache__
 **/*.png
 **/*.pdf
+data/passing_timeseries/*.pkl
 # keep data folder empty except for the readme
 # data/**
 # !data/README.md
