@@ -7,6 +7,7 @@ Created on Thu Nov 21 15:21:21 2019
 
 from MGA import Microbial
 from CTRNNEdgelist import CTRNN
+from WeightMatrixStorage import WeightMatrix, WeightMatrixStorage
 import numpy as np
 import pickle
 import glob
@@ -74,6 +75,7 @@ trials = 10
 # as well as a dataframe of summary stats
 passing_timeseries = {}
 df_list = []
+wms = WeightMatrixStorage()
 
 for edgelist in edgelist_list:
     print('Evolving network based on', edgelist)
@@ -108,16 +110,20 @@ for edgelist in edgelist_list:
         first_condition = False
         third_condition = False
 
+        # init ctrnn so we can save weight matrix
+        nn = CTRNN(edgelist)
+        nn.setParameters(bi, WeightRange, BiasRange,
+                         TimeConstMin, TimeConstMax)
+        nn.initializeState(np.zeros(nnsize))
+
+        # create weight matrix object
+        wm = WeightMatrix(nnsize, nn.Weight, edgelist, bfit)
+        wms.add_matrix(wm)
+
         # First condition: That the oscillation be strong
         if bfit > fitness_threshold:
             first_condition = True
             print('\t\tFitness > Threshold!')
-
-            # init ctrnn
-            nn = CTRNN(edgelist)
-            nn.setParameters(bi, WeightRange, BiasRange,
-                             TimeConstMin, TimeConstMax)
-            nn.initializeState(np.zeros(nnsize))
 
             # init arrays for downstream calculations
             outputs = np.zeros((len(totaltime), nnsize))
@@ -226,3 +232,8 @@ df = pd.DataFrame(df_list)
 dfout = open(snakemake.output.csv, 'w')
 df.to_csv(dfout)
 dfout.close()
+
+# third is all of the weight matrices
+wm_file = open(snakemake.output.wm, 'wb')
+pickle.dump(wms, wm_file)
+wm_file.close()
