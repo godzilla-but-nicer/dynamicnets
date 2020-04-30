@@ -26,9 +26,7 @@ rule generate_edgelists:
     input:
         "data/"
     output:
-        out_dirs=[directory(f) for f in config["net_sizes"].values()]
-    log:
-        "logs/generate_edgelists.log"
+        "data/edgelists/{nodes}_node_edgelists"
     script:
         "dynamicnets/dynamicnets/create_edgelists.py"
 
@@ -43,3 +41,12 @@ rule evolve_networks:
         "logs/evolve_networks_{nodes}.log"
     script:
         "dynamicnets/dynamicnets/evolve_CTRNN_osc.py"
+
+rule add_graph_attributes:
+    input:
+        "data/edgelists/{nodes}_node_edgelists/",
+        "data/evo_stats/{nodes}_node_evolve.csv"
+    output:
+        "data/evo_graph_stats/{nodes}_node_graph.csv"
+    script:
+        "dynamicnets/dynamicnets/add_graph_attributes.py"
