@@ -8,11 +8,10 @@ from itertools import chain, combinations
 
 
 class NetworkSampler:
-    def __init__(self, max_nodes, sample_sizes, min_nodes=2):
+    def __init__(self, nodes, sample_sizes):
         """This class contains some useful functions for building our graphs"""
         self.data_dir = 'data/edgelists/'
-        self.min_nodes = min_nodes
-        self.max_nodes = max_nodes
+        self.nodes = nodes
         # dictionary of sample sizes so we an easily refer to specific ones
         # make keys be number of nodes and values be sample sizes
         if isinstance(sample_sizes, int):
@@ -118,27 +117,27 @@ class NetworkSampler:
 
     def write_edgelists(self):
         """ Write out all of the generated Graph's edges to edgelist files """
-        for n in range(self.min_nodes, self.max_nodes + 1):
-            start_time = time.time()
-            print('generating edgelists for', n, 'nodes')
-            if n < 5:
-                graphs = self.enumerate_graphs(n)
-            else:
-                graphs = self.sample_graphs(n)
+        n = self.nodes
+        start_time = time.time()
+        print('generating edgelists for', n, 'nodes')
+        if n < 5:
+            graphs = self.enumerate_graphs(n)
+        else:
+            graphs = self.sample_graphs(n)
 
-            graphs = self.filter_isomorphisms(graphs)
+        graphs = self.filter_isomorphisms(graphs)
 
-            # Check if directory for storing these lists exists
-            dir_name = self.data_dir + str(n) + '_node_edgelists/'
-            if not os.path.exists(dir_name):
-                os.mkdir(dir_name)
+        # Check if directory for storing these lists exists
+        dir_name = self.data_dir + str(n) + '_node_edgelists/'
+        if not os.path.exists(dir_name):
+            os.mkdir(dir_name)
 
-            # write edgelists to file
-            for i, G in tqdm(enumerate(graphs)):
-                file_name = dir_name + str(n) + '_node_' + str(i) + '.edgelist'
-                fout = open(file_name, 'wb')
-                nx.write_edgelist(G, fout)
-                fout.close()
-            end_time = time.time()
-            print('Wrote {} edgelists in {:.2f} s'.format(
-                len(graphs), end_time - start_time))
+        # write edgelists to file
+        for i, G in enumerate(graphs):
+            file_name = dir_name + str(n) + '_node_' + str(i) + '.edgelist'
+            fout = open(file_name, 'wb')
+            nx.write_edgelist(G, fout)
+            fout.close()
+        end_time = time.time()
+        print('Wrote {} edgelists in {:.2f} s'.format(
+            len(graphs), end_time - start_time))

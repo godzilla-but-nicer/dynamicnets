@@ -98,7 +98,7 @@ class CTRNN():
 
     def get_adjacency_filter(self, edgelist):
         # load the edge list into a graph and return adjacency matrix
-        G = nx.read_edgelist(edgelist)
+        G = nx.read_edgelist(edgelist, create_using=nx.DiGraph)
         adj_matrix = np.array(nx.to_numpy_matrix(G))
         np.fill_diagonal(adj_matrix, 1)
         return adj_matrix

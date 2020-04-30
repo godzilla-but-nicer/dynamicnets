@@ -1,0 +1,12 @@
+name: netsciproj
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - numpy
+  - networkx
+  - matplotlib
+  - seaborn
+  - pandas
+  - scikit-learn
+  - snakemake
