@@ -55,8 +55,7 @@ rule evolve_bns:
     input:
         "data/edgelists/{nodes}_node_edgelists/"
     output:
-        pkl="data/passing_timeseries_bns/{nodes}_nodes_bns_timeseries.pkl",
-        csv="data/evo_stats_bns/{nodes}_node_bns_evolve.csv",
-        wm="data/weight_matrices_bns/{nodes}_nodes_bns_weight_matrices.pkl"
+        csv="data/evo_stats_bnn/{nodes}_node_bnn_evolve.csv",
+        wm="data/weight_matrices_bnn/{nodes}_nodes_bnn_weight_matrices.pkl"
     script:
-        "dynamicnets/dynamicnets/evolve_bn_osc.py"
+        "dynamicnets/dynamicnets/evolve_BNN_osc.py"
