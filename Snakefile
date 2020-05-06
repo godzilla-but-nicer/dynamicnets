@@ -50,3 +50,12 @@ rule add_graph_attributes:
         "data/evo_graph_stats/{nodes}_node_graph.csv"
     script:
         "dynamicnets/dynamicnets/add_graph_attributes.py"
+
+rule evolve_bns:
+    input:
+        "data/edgelists/{nodes}_node_edgelists/"
+    output:
+        csv="data/evo_stats_bnn/{nodes}_node_bnn_evolve.csv",
+        wm="data/weight_matrices_bnn/{nodes}_nodes_bnn_weight_matrices.pkl"
+    script:
+        "dynamicnets/dynamicnets/evolve_BNN_osc.py"
