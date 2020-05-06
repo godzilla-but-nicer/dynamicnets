@@ -1,2 +1,6 @@
 numpy
 networkx
+snakemake
+seaborn
+matplotlib
+scikit-learn
