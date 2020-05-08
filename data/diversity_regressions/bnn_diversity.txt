@@ -1,0 +1,102 @@
+Original Model:
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:           avg_distance   R-squared:                       0.889
+Model:                            OLS   Adj. R-squared:                  0.889
+Method:                 Least Squares   F-statistic:                     8729.
+Date:                Fri, 08 May 2020   Prob (F-statistic):               0.00
+Time:                        11:46:47   Log-Likelihood:                 9862.9
+No. Observations:                5471   AIC:                        -1.971e+04
+Df Residuals:                    5465   BIC:                        -1.967e+04
+Df Model:                           5                                         
+Covariance Type:            nonrobust                                         
+==============================================================================================
+                                 coef    std err          t      P>|t|      [0.025      0.975]
+----------------------------------------------------------------------------------------------
+Intercept                      0.3346      0.002    165.516      0.000       0.331       0.339
+strongly_connected[T.True]     0.0219      0.001     15.188      0.000       0.019       0.025
+nodes                         -0.0306      0.000    -97.033      0.000      -0.031      -0.030
+num_edges                      0.0931      0.001     63.046      0.000       0.090       0.096
+two_cycles                    -0.0190      0.003     -6.105      0.000      -0.025      -0.013
+long_cycles                -7.735e-07   4.02e-08    -19.239      0.000   -8.52e-07   -6.95e-07
+==============================================================================
+Omnibus:                     1256.490   Durbin-Watson:                   1.224
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             7114.222
+Skew:                           0.978   Prob(JB):                         0.00
+Kurtosis:                       8.233   Cond. No.                     1.43e+05
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.43e+05. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+p-values:
+0.0
+4.6116206456091596e-51
+0.0
+0.0
+1.096746231784288e-09
+7.200507797627143e-80
+Shapley:
+
+rsquared: 0.8886228535976259
+shapely_computed: 0.8886228535976259
+nodes: 0.1822, 20.50%
+num_edges: 0.2148, 24.17%
+two_cycles: 0.2733, 30.76%
+long_cycles: 0.0598, 6.73%
+long_cycles: 0.0598, 6.73%
+strongly_connected: 0.0988, 11.11%
+
+
+
+Normalized Model
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:           avg_distance   R-squared:                       0.697
+Model:                            OLS   Adj. R-squared:                  0.697
+Method:                 Least Squares   F-statistic:                     3144.
+Date:                Fri, 08 May 2020   Prob (F-statistic):               0.00
+Time:                        11:46:48   Log-Likelihood:                 7122.8
+No. Observations:                5471   AIC:                        -1.424e+04
+Df Residuals:                    5466   BIC:                        -1.420e+04
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+==============================================================================================
+                                 coef    std err          t      P>|t|      [0.025      0.975]
+----------------------------------------------------------------------------------------------
+Intercept                      0.2363      0.003     81.862      0.000       0.231       0.242
+strongly_connected[T.True]     0.0515      0.002     22.178      0.000       0.047       0.056
+num_edges                     -0.0253      0.001    -18.412      0.000      -0.028      -0.023
+two_cycles                     0.2070      0.003     60.858      0.000       0.200       0.214
+long_cycles                -2.134e-07   6.56e-08     -3.251      0.001   -3.42e-07   -8.47e-08
+==============================================================================
+Omnibus:                      463.932   Durbin-Watson:                   1.201
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              747.304
+Skew:                           0.637   Prob(JB):                    5.31e-163
+Kurtosis:                       4.287   Cond. No.                     9.79e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 9.79e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+p-values:
+0.0
+2.026404047603914e-104
+1.680973810374529e-73
+0.0
+0.0011587722538626353
+Shapley:
+
+rsquared: 0.6967919944929981
+shapely_computed: 0.696791994492998
+two_cycles: 0.3563, 51.13%
+num_edges: 0.1579, 22.66%
+long_cycles: 0.0720, 10.34%
+strongly_connected: 0.1106, 15.88%
+
+
+
