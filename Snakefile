@@ -4,23 +4,9 @@ configfile: "workflow/config.yaml"
 
 DATA_DIR = config["data_dir"]
 
-PAPER_DIR = config["paper_dir"]
-PAPER_SRC, SUPP_SRC = [j(PAPER_DIR, f) for f in ("main.tex", "supp.tex")]
-PAPER, SUPP = [j(PAPER_DIR, f) for f in ("main.pdf", "supp.pdf")]
-
 rule all:
     input:
-        PAPER, SUPP
-
-rule paper:
-    input:
-        PAPER_SRC, SUPP_SRC
-    params:
-        paper_dir = PAPER_DIR
-    output:
-        PAPER, SUPP
-    shell:
-        "cd {params.paper_dir}; make"
+        
 
 rule generate_edgelists:
     input:
@@ -51,7 +37,7 @@ rule add_graph_attributes:
     script:
         "dynamicnets/dynamicnets/add_graph_attributes.py"
 
-rule evolve_bns:
+rule evolve_bnn:
     input:
         "data/edgelists/{nodes}_node_edgelists/"
     output:
@@ -59,3 +45,54 @@ rule evolve_bns:
         wm="data/weight_matrices_bnn/{nodes}_nodes_bnn_weight_matrices.pkl"
     script:
         "dynamicnets/dynamicnets/evolve_BNN_osc.py"
+
+rule add_graph_attributes_bnn:
+    input:
+        "data/edgelists/{nodes}_node_edgelists/",
+        "data/evo_stats_bnn/{nodes}_node_bnn_evolve.csv"
+    output:
+        "data/evo_graph_stats_bnn/{nodes}_node_graph_bnn.csv"
+    script:
+        "dynamicnets/dynamicnets/add_graph_attributes.py"
+
+rule add_timeseries_attributes_bnn:
+    input:
+        edges="data/edgelists/{nodes}_node_edgelists/",
+        csv="data/evo_graph_stats_bnn/{nodes}_node_graph_bnn.csv",
+        mat="data/weight_matrices_bnn/{nodes}_nodes_bnn_weight_matrices.pkl"
+    output:
+        "data/evo_timeseries_bnn/{nodes}_node_timeseries_bnn.csv"
+    script:
+        "dynamicnets/dynamicnets/add_timeseries_attributes.py"
+
+rule fitness_regression:
+    input:
+        "data/evo_graph_stats/"
+    output:
+        "data/fitness_regressions/regress_output.txt"
+    script:
+        "dynamicnets/dynamicnets/run_fitness_regressions.py"
+
+rule fitness_regression_bnn:
+    input:
+        "data/evo_timeseries_bnn/"
+    output:
+        "data/fitness_regressions/bnn_regress_output.txt"
+    script:
+        "dynamicnets/dynamicnets/run_fitness_regressions_bnn.py"
+
+rule diversity_regression_bnn:
+    input:
+        "data/evo_timeseries_bnn/"
+    output:
+        "data/diversity_regressions/bnn_diversity.txt"
+    script:
+        "dynamicnets/dynamicnets/run_diversity_regressions.py"
+
+rule norm_amp_regressions_bnn:
+    input:
+        "data/evo_timeseries_bnn/"
+    output:
+        "data/amplitude_regression/bnn_amplitude.txt"
+    script:
+        "dynamicnets/dynamicnets/run_amp_regressions.py"

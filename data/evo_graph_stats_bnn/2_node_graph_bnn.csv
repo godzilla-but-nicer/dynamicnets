@@ -1,0 +1,3 @@
+,Unnamed: 0,nodes,id,avg_avg_fit,min_best_fit,max_best_fit,avg_best_fit,num_edges,two_cycles,long_cycles,strongly_connected
+0,0,2,0,1.9856,2.0,2.0,2.0,1,0,0,False
+1,1,2,1,1.9732,2.0,2.0,2.0,2,1,0,True
